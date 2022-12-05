@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
+
+// import FreteCreateView from '../views/Frete/FreteCreateView.vue'
+
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
@@ -17,7 +20,18 @@ const routes: Array<RouteConfig> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+  },
+  {
+    path: '/frete',
+    name: 'frete-List',
+    component: () => import(/* webpackChunkName: "frete-list" */ '../views/frete/FreteListView.vue')
+  },
+  {
+    path: '/frete/Create',
+    name: 'frete-Create',
+    component: () => import(/* webpackChunkName: "frete-create" */ '../views/frete/FreteCreateView.vue')
+  },
+ 
 ]
 
 const router = new VueRouter({
