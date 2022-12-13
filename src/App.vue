@@ -14,6 +14,7 @@
 <style lang="scss">
 
 @import "~bulma/bulma.sass";
+@import "~bootstrap/scss/bootstrap.scss";
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

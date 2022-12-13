@@ -31,6 +31,11 @@ const routes: Array<RouteConfig> = [
     name: 'frete-Create',
     component: () => import(/* webpackChunkName: "frete-create" */ '../views/frete/FreteCreateView.vue')
   },
+  {
+    path: '/frete/Interrompido',
+    name: 'frete-Edit',
+    component: () => import(/* webpackChunkName: "frete-create" */ '../views/frete/modals/Interrompido.vue')
+  },
  
 ]
 

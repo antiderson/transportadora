@@ -1,7 +1,7 @@
-import { Caminhao } from './../model/Caminhao';
+import { Caminhao } from '../model/Caminhao';
 import axios, { AxiosInstance } from 'axios';
 
-export class CainhaoClient {
+export class CaminhaoClient {
 
     private axiosClient: AxiosInstance
 

@@ -32,6 +32,16 @@ export class CidadeClient {
         }
     }
 
+    //  
+    public async findByEstado(estado: number):Promise<Cidade[]>{
+        try{
+            return (await this.axiosClient.get<Cidade[]>(`/estado/${estado}`)).data
+        }
+        catch(error: any){
+            return Promise.reject(error.response)
+        }
+    }
+
     public async cadastrar(cidade: Cidade): Promise<void> {
         try {
             return (await this.axiosClient.post(``, cidade)).data
