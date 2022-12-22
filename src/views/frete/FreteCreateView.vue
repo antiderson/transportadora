@@ -5,8 +5,8 @@
             <div class="teste"><!-- Frete Origem -->
                 <div class="campo">
                     <label class="label">Estado de Origem</label>
-                    <div  class=" select is-fullwidth is-success">
-                        <select @change="selectEtadoOrigemList($event)" >
+                    <div class=" select is-fullwidth is-success">
+                        <select @change="selectEtadoOrigemList($event)">
                             <option>Selecione um Estado</option>
                             <option class="is-success" :value='item.id' v-for="item in estadoList" :key="item.id">
                                 {{ item.nome }}</option>
@@ -16,7 +16,7 @@
                 <div class="campo">
                     <label class="label">Cidade de Origem</label>
                     <div class="select is-fullwidth is-success">
-                        <select>
+                        <select v-model="frete.cidadeOrigem">
                             <option class="is-success" :value='item' v-for="item in cidadeInicialList" :key="item.id">
                                 {{ item.nome }}
                             </option>
@@ -31,16 +31,16 @@
                     <div class="select is-fullwidth is-success">
                         <select @change="selectEstadoDestinoList($event)">
                             <option class="is-success" :value='item.id' v-for="item in estadoList" :key="item.id">
-                            {{ item.nome }}</option>
+                                {{ item.nome }}</option>
                         </select>
                     </div>
                 </div>
                 <div class="campo">
                     <label class="label">Cidade de Destino</label>
                     <div class="select is-fullwidth is-success">
-                        <select>
+                        <select v-model="frete.cidadeDestino">
                             <option class="is-success" :value='item' v-for="item in cidadeDestinoList" :key="item.id">
-                            {{item.nome}}
+                                {{ item.nome }}
                             </option>
                         </select>
                     </div>
@@ -57,16 +57,17 @@
 
             <label class="label">Caminhão</label>
             <div class="select is-success is-fullwidth ">
-                <select v-model="caminhao.placa">
-                    <option class="is-success" :value='item' v-for="item in caminhaoList" :key="item.id">{{ item.placa }}
+                <select v-model="frete.caminhao">
+                    <option class="is-success" :value='item' v-for="item in caminhaoList" :key="item.id">{{ item.placa
+                    }}
                     </option>
                 </select>
             </div>
 
             <label class="label">Motorista</label>
             <div class="select is-success is-fullwidth ">
-                <select v-model="usuario.nome">
-                    <option class="is-success" :value='item' v-for="item in usuarioList" :key="item.id">{{ item.nome}}
+                <select v-model="frete.motorista">
+                    <option class="is-success" :value='item' v-for="item in usuarioList" :key="item.id">{{ item.nome }}
                     </option>
                 </select>
             </div>
@@ -78,10 +79,10 @@
             </div>
         </div>
         <div class="btns">
-            <button @click="onClickCadastrar()" class="button is-primary">Cadastrar</button>
+            <button type="button" btype="submit" @click="onClickCadastrar()"
+                class="button is-primary">Cadastrar</button>
             <router-link to="/frete" class="button is-primary">Voltar</router-link>
         </div>
-
     </form>
 
 </template>
@@ -136,6 +137,20 @@ export default class FreteCreateView extends Vue {
         this.selectProdutoList()
         this.selectCaminhaoList()
         this.selectUsuarioList()
+    }
+
+    public onClickCadastrar(): void {
+        // debugger
+
+        this.freteClient.cadastrar(this.frete).then(
+            success => {
+                this.frete = new Frete()
+                console.log('Registro cadastrado com sucesso!!!')
+            },
+            error => {
+                console.log(error)
+            }
+        )
     }
 
     private selectEstadoList(): void {
@@ -215,7 +230,7 @@ export default class FreteCreateView extends Vue {
         )
     }
 
-    private selectUsuarioList(): void{
+    private selectUsuarioList(): void {
         this.usuarioClient.findAll().then(
             suscess => {
                 this.usuarioList = suscess
@@ -224,35 +239,6 @@ export default class FreteCreateView extends Vue {
                 console.log(error)
             }
         )
-    }
-
-    // public onClickCadastrar(): void {
-    //     this.freteClient.cadastrar(this.frete).then(
-    //         suscess => {
-    //             console.log("Registro cadastrado com sucesso!")
-    //             this.frete = new Frete()
-    //         },
-    //         error => {
-    //             console.log(error)
-    //         }
-    //     )
-    // }
-
-    public async onClickCadastrar(): Promise<void> {
-        try {
-            const data = {
-                caminhaoId: this.frete.caminhao,
-                cidadeDestinoId: this.frete.cidadeDestino,
-                cidadeOrigemId: this.frete.cidadeOrigem,
-                motoristaId: this.frete.motorista,
-                precoTonelada: this.frete.precoTonelada,
-                produtoId: this.frete.produto
-            }
-            await this.freteClient.cadastrar(data)
-            this.$router.push('/frete')
-        } catch (error: any) {
-            console.log(error)
-        }
     }
 }
 </script>
@@ -287,7 +273,7 @@ export default class FreteCreateView extends Vue {
     justify-content: space-between;
 }
 
-.campo{
+.campo {
     width: 47%;
     // margin-right: 10px;
 }

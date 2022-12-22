@@ -7,11 +7,10 @@ export class DespesaClient {
 
     constructor() {
         this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8080/api/despesa',
+            baseURL: 'http://localhost:8080/api/despesas',
             headers: {
                 'Content-Type': 'application/json'
             }
-
         })
     }
 
@@ -33,11 +32,12 @@ export class DespesaClient {
         }
     }
 
-    public async cadastrar(despesa: Despesa): Promise<void> {
+    public async cadastrar(despesa: any): Promise<void> {
         try {
             return (await this.axiosClient.post(``, despesa)).data
         }
         catch (error: any) {
+            console.error(error)
             return Promise.reject(error.response)
         }
     }
@@ -59,4 +59,5 @@ export class DespesaClient {
             return Promise.reject(error.response)
         }
     }
+
 }

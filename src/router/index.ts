@@ -3,7 +3,6 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 
-// import FreteCreateView from '../views/Frete/FreteCreateView.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +20,8 @@ const routes: Array<RouteConfig> = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
+
+  //Frete Routes
   {
     path: '/frete',
     name: 'frete-List',
@@ -32,11 +33,37 @@ const routes: Array<RouteConfig> = [
     component: () => import(/* webpackChunkName: "frete-create" */ '../views/frete/FreteCreateView.vue')
   },
   {
-    path: '/frete/Interrompido',
+    path: '/frete/Interrompido/:id',
     name: 'frete-Edit',
-    component: () => import(/* webpackChunkName: "frete-create" */ '../views/frete/modals/Interrompido.vue')
+    component: () => import(/* webpackChunkName: "frete-create" */ '../views/frete/Interrompido.vue')
+  }, {
+    path: '/frete/Cancelado/:id',
+    name: 'frete-Edit1',
+    component: () => import(/* webpackChunkName: "frete-create" */ '../views/frete/Cancelado.vue')
+  }, 
+  {
+    path: '/statusEmTransporte/:id',
+    name: 'Frete-Transporte',
+    component: () => import(/* webpackChunkName: "frete-create" */ '../views/frete/FreteStatusEm_TransporteView.vue')
   },
- 
+
+  // Despesa Routes
+  {
+    path: '/despesa',
+    name: 'despesa-List',
+    component: () => import(/* webpackChunkName: "frete-list" */ '../views/despesa/DespesaListView.vue')
+  },
+  {
+    path: '/despesa/Create',
+    name: 'despesa-Create',
+    component: () => import(/* webpackChunkName: "frete-list" */ '../views/despesa/DespesaCreateView.vue')
+  },
+  {
+    path: '/despesa/Edit/:id',
+    name: 'despesa-Edit',
+    component: () => import(/* webpackChunkName: "frete-create" */ '../views/despesa/modals/Edit.vue')
+  }
+
 ]
 
 const router = new VueRouter({

@@ -5,6 +5,7 @@ import { Usuario } from "./Usuario"
 
 
 export class Despesa extends AbstractEntity {
+  [x: string]: any
 
   tipoDespesa!: TipoDespesa
   valor!: number
@@ -12,4 +13,12 @@ export class Despesa extends AbstractEntity {
   data!: Date
   executor !: Usuario
   frete!: Frete
+
+  constructor() {
+    super()
+    this.tipoDespesa = new TipoDespesa()
+    this.motorista = new Usuario()
+    this.executor = new Usuario()
+    this.frete = new Frete()
+  }
 }

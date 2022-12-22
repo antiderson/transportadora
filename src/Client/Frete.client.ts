@@ -1,5 +1,5 @@
 import { Frete } from "@/model/Frete";
-import axios,{AxiosInstance} from "axios";
+import axios, { AxiosInstance } from "axios";
 
 export class FreteClient {
 
@@ -7,7 +7,7 @@ export class FreteClient {
 
     constructor() {
         this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8080/api/frete',
+            baseURL: 'http://localhost:8080/api/fretes',
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -55,6 +55,22 @@ export class FreteClient {
             return (await this.axiosClient.delete(`/${frete.id}`)).data
         }
         catch (error: any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async statusEmTransporte(frete: Frete): Promise<void> {
+        try {
+            return (await this.axiosClient.put(`status/putStatusEmTransporte/${frete.id}`, frete)).data
+        } catch (error: any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async statusInterrompido(frete: Frete): Promise<void> {
+        try {
+            return (await this.axiosClient.put(`/status/interrompido/${frete.id}`, frete)).data
+        } catch (error: any) {
             return Promise.reject(error.response)
         }
     }

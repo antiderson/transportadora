@@ -6,6 +6,7 @@ import { Produto } from './Produto';
 import { Usuario } from './Usuario';
 
 export class Frete extends AbstractEntity {
+[x: string]: any
 
     produto!: Produto
     cidadeOrigem!: Cidade
